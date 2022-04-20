@@ -12,7 +12,7 @@ Usage:
 
     #include <Plot_u1.h>
     
-    Plot plot; // instanticate
+    Plot plot; // instantiate
     
     void setup(void) {
       Serial.begin(9600);
