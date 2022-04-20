@@ -1,4 +1,4 @@
-# Arduino-Plot-lib
+# Arduino Plot lib
 
 The Plot class helps you manage strings sent to the Arduino IDE Serial Plotter.
 
