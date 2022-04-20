@@ -14,8 +14,8 @@ Plot	KEYWORD1
 
 add	KEYWORD2
 print	KEYWORD2
-constraint_on	KEYWORD2
-constraint_off	KEYWORD2
+constrain_on	KEYWORD2
+constrain_off	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
