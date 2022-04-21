@@ -8,7 +8,7 @@ The constructor accepts two values, the number of periods to use in forming cons
 
     #include <EMA.h>
     
-    EMA ema_bitrate(4, 2);                       // construct a fast EMA object
+    EMA bitrate_ema(4, 2);                       // construct a fast EMA object
     ... loop ...
     bitrate = calculateBitrate();                // get the most recent bitrate
     displayBitrate(bitrate_ema.update(bitrate)); // get the EMA for display purposes
