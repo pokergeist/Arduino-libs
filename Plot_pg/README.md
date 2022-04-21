@@ -1,4 +1,4 @@
-# Arduino Plot(_u1) lib
+# Arduino Plot(_pg) lib
 
 The Plot class helps you generate and accumulate variable strings to be sent to the Arduino IDE's Serial Plotter.
 
@@ -6,11 +6,11 @@ After instantiation incrementally add() a label, value and an optional offset. T
 
 The class will append subsequently added value strings with a comma, and terminate the string with "\n" when print(Serial) is called.
 
-The directory and .h files have been renamed with the _u1 suffix to hopefully avoid a name collision in the future. u1 indiates a simple 1st level utility.
+The directory and .h files have been renamed with the _pg suffix to hopefully avoid a name collision in the future. pg is just shorthand for my GitHub moniker.
 
 Usage:
 
-    #include <Plot_u1.h>
+    #include <Plot_pg.h>
     
     Plot plot; // instantiate
     
