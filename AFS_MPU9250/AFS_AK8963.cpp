@@ -9,7 +9,7 @@
  *
  *  @section dependencies Dependencies
  *
- *  This library as a whole depends on the Adafruit BusIO & Wire libraries.
+ *  TThis library depends on the Adafruit BusIO and Unified Sensor libraries.
  *
  *  @section author Author
  *
@@ -24,9 +24,9 @@
  *     v0.1 - First release
  */
 
+#include "AFS_AK8963.h"
 #include <Adafruit_BusIO_Register.h>
 #include <Wire.h>
-#include "AFS_AK8963.h"
 
 extern char* trFunction;
 extern int   trLine;
@@ -177,7 +177,8 @@ bool AK8963_Magnetometer::setMode(magn_operation_mode_t op_mode,
  */
 /**************************************************************************/
 bool AK8963_Magnetometer::test_who_am_i(bool in_pass_through_mode) {
-  if (not in_pass_through_mode) return false;
+  if (not in_pass_through_mode)
+    return false;
   Adafruit_BusIO_Register wia_reg(magn_i2c_device, AK8963_WHO_AM_I);
   return (wia_reg.read() == AK8963_WHO_I_AM);
 }

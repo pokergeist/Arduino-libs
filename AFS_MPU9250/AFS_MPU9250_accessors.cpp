@@ -6,8 +6,8 @@
  *
  *  @section intro_sec Introduction
  *
- * 	This file contains basic accessor methods for the MPU9250. The were moved
- *  out of the main file simply for ease of navigation. They may be
+ * 	This file contains basic accessor methods for the MPU9250. The were
+ *  moved out of the main file simply for ease of navigation. They may be
  *  re-integrated later.
  *
  *  @section dependencies Dependencies
@@ -33,8 +33,8 @@
  */
 
 #include "Arduino.h"
-#include <Wire.h>
 #include <Streaming.h>
+#include <Wire.h>
 
 #include "AFS_MPU9250.h"
 
@@ -428,8 +428,7 @@ bool AFS_MPU9250::setGyroStandby(bool xAxisStandby, bool yAxisStandby,
  *     @return True if setting was successful, otherwise false.
  */
 /**************************************************************************/
-bool AFS_MPU9250::setAccelerometerStandby(bool xAxisStandby,
-                                               bool yAxisStandby,
+bool AFS_MPU9250::setAccelerometerStandby(bool xAxisStandby, bool yAxisStandby,
                                                bool zAxisStandby) {
   Adafruit_BusIO_Register pwr_mgmt_2(i2c_dev, MPU9250_PWR_MGMT_2);
   Adafruit_BusIO_RegisterBits accel_stdby(&pwr_mgmt_2, PM2_DISABLE_AC);
@@ -452,4 +451,3 @@ bool AFS_MPU9250::setTemperatureStandby(bool enable) {
   Adafruit_BusIO_RegisterBits temp_stdby(&pwr_mgmt, PM1_PD_STAT);
   return temp_stdby.write(1);
 }
-

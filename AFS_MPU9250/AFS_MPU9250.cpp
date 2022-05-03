@@ -32,8 +32,8 @@
  */
 
 #include "Arduino.h"
-#include <Wire.h>
 #include <Streaming.h>
+#include <Wire.h>
 
 #include "AFS_MPU9250.h"
 
@@ -136,9 +136,10 @@ bool AFS_MPU9250::_init(int32_t sensor_id) {
   setDataReadyInterrupt(true);
 
   // set gyro range & LPFilter
-  // was setGyroFilterBandwidth(MPU9250_LOWPASS_GYRO_BW_250_HZ); // that's 0, no sample div
-  // LPF option 1-7 to enable sample_rate_div
-  setGyroFilterBandwidth(MPU9250_LOWPASS_GYRO_BW_184_HZ, MPU9250_GYRO_FCHOICE_DLPF);
+  // was setGyroFilterBandwidth(MPU9250_LOWPASS_GYRO_BW_250_HZ); // that's 0, no
+  // sample div LPF option 1-7 to enable sample_rate_div
+  setGyroFilterBandwidth(MPU9250_LOWPASS_GYRO_BW_184_HZ,
+                         MPU9250_GYRO_FCHOICE_DLPF);
   setGyroRange(MPU9250_RANGE_250_DEG);      // max resolution
   setAccelerometerRange(MPU9250_RANGE_2_G); // max resolution
 
@@ -195,7 +196,8 @@ void AFS_MPU9250::reset(void) {
 void AFS_MPU9250::_read(void) {
   // get raw sensor data
   uint8_t buffer[14+AK63_RAW_BYTES];
-  Adafruit_BusIO_Register data_reg(i2c_dev, MPU9250_ACCEL_XOUT_H, 14+AK63_RAW_BYTES);
+  Adafruit_BusIO_Register data_reg(i2c_dev, MPU9250_ACCEL_XOUT_H,
+                                   14 + AK63_RAW_BYTES);
   data_reg.read(buffer, 14+AK63_RAW_BYTES);
 
   rawAccX = buffer[0] << 8 | buffer[1];
@@ -328,9 +330,7 @@ void AFS_MPU9250::fillMagnEvent(sensors_event_t* magn, uint32_t timestamp) {
   @brief  Gets an Adafruit Unified Sensor object for the temp sensor component
   @return Adafruit_Sensor pointer to temperature sensor
 */
-Adafruit_Sensor* AFS_MPU9250::getTemperatureSensor(void) {
-  return temp_sensor;
-}
+Adafruit_Sensor *AFS_MPU9250::getTemperatureSensor(void) { return temp_sensor; }
 
 /*!
  *  @brief  Gets an Adafruit Unified Sensor object for the
@@ -340,7 +340,6 @@ Adafruit_Sensor* AFS_MPU9250::getTemperatureSensor(void) {
 Adafruit_Sensor* AFS_MPU9250::getMagnetometerSensor(void) {
   return magn_sensor;
 }
-
 
 /*!
     @brief  Gets an Adafruit Unified Sensor object for the accelerometer
@@ -477,18 +476,19 @@ bool AFS_MPU9250_Temp::getEvent(sensors_event_t* event) {
     @returns True if the write was successful, False otherwise.
 */
 /**************************************************************************/
-bool AFS_MPU9250::proxy_write(Adafruit_I2CDevice* i2c_device,
-                              uint8_t sregister, uint8_t bitwidth,
-                              uint8_t shift, uint8_t value,
+bool AFS_MPU9250::proxy_write(Adafruit_I2CDevice *i2c_device, uint8_t sregister,
+                              uint8_t bitwidth, uint8_t shift, uint8_t value,
                               uint8_t nbytes) {
   // Serial.print("in proxy_write sreg=");
   // Serial.print(sregister, HEX);
   // Serial.print("\n");
   int initialBypassMode = getI2C_Bypass();
-  if (not initialBypassMode) setI2C_Bypass(1);
+  if (not initialBypassMode)
+    setI2C_Bypass(1);
   Adafruit_BusIO_Register slave_register(i2c_dev, sregister, nbytes);
   Adafruit_BusIO_RegisterBits bit_field(&slave_register, bitwidth, shift);
-  if (not initialBypassMode) setI2C_Bypass(0);
+  if (not initialBypassMode)
+    setI2C_Bypass(0);
   return bit_field.write(value);
 }
 
@@ -512,10 +512,12 @@ uint32_t AFS_MPU9250::proxy_read(Adafruit_I2CDevice* i2c_device,
                                  uint8_t sregister, uint8_t bitwidth,
                                  uint8_t shift, uint8_t nbytes) {
   int initialBypassMode = getI2C_Bypass();
-  if (not initialBypassMode) setI2C_Bypass(1);
+  if (not initialBypassMode)
+    setI2C_Bypass(1);
   Adafruit_BusIO_Register slave_register(i2c_device, sregister, nbytes);
   Adafruit_BusIO_RegisterBits bit_field(&slave_register, bitwidth, shift);
-  if (not initialBypassMode) setI2C_Bypass(0);
+  if (not initialBypassMode)
+    setI2C_Bypass(0);
   return bit_field.read();
 }
 
@@ -555,10 +557,13 @@ bool AFS_MPU9250::proxy_read(Adafruit_I2CDevice* i2c_device,
 */
 /**************************************************************************/
 bool AFS_MPU9250::config_slave_regs(uint8_t sl_i2c_address, uint slave_number,
-                  uint8_t sl_base_register, uint8_t num_registers) {
-  if (slave_number > 4) return false;
+                                    uint8_t sl_base_register,
+                                    uint8_t num_registers) {
+  if (slave_number > 4)
+    return false;
   const int register_set_offset = 3;
-  uint8_t reg_base = MPU9250_I2C_SLV0_ADDR + (register_set_offset * slave_number);
+  uint8_t reg_base =
+      MPU9250_I2C_SLV0_ADDR + (register_set_offset * slave_number);
   uint8_t ctrl_offset = (slave_number != 4) ? 2 : 3; // stupid DO
   Adafruit_BusIO_Register slave_addr_reg(i2c_dev, reg_base);
   Adafruit_BusIO_Register slave_reg_reg(i2c_dev, reg_base+1);
@@ -568,9 +573,11 @@ bool AFS_MPU9250::config_slave_regs(uint8_t sl_i2c_address, uint slave_number,
   Adafruit_BusIO_RegisterBits ctrl_swap(&slave_crtl_reg, SL_I2C_SLV_BYTE_SWAP);
   Adafruit_BusIO_RegisterBits ctrl_dis(&slave_crtl_reg, SL_I2C_SLV_DIS);
   Adafruit_BusIO_RegisterBits ctrl_grp(&slave_crtl_reg, SL_I2C_SLV_GRP);
-  Adafruit_BusIO_RegisterBits ctrl_read_len(&slave_crtl_reg, SL_I2C_SLV_LENG); */
+  Adafruit_BusIO_RegisterBits ctrl_read_len(&slave_crtl_reg, SL_I2C_SLV_LENG);
+*/
 
-  if (not slave_addr_reg.write(0x80 | sl_i2c_address)) { // read bit + slave address
+  if (not slave_addr_reg.write(0x80 |
+                               sl_i2c_address)) { // read bit + slave address
     // Serial.print("Slave I/O config fault address reg\n");
     return false;
   }

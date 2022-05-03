@@ -70,12 +70,11 @@
 #define AK8963_BULK_RAW_OUT_BYTES   6   // continuous read of raw magXYZ data
 #define AK63_RAW_BYTES              6   // continuous read of raw magXYZ data
 #define AK63_RAW_BYTES_ST2                                                     \
-  7 /* continuous read of raw magXYZ data                                      \
+  7 /* continuous read of raw magXYZ data \                                                                             \
                                              + STATUS_2 (resets INTR)       */
 #define AK63_ST1_RAW_BYTES_ST2                                                 \
-  8 /* continuous read of raw magXYZ data                                      \
-         + both status registers                                               \
-                                             (resets INTR)                  */
+  8 /* continuous read of raw magXYZ data \                                                                             \
+         + both status registers \ (resets INTR)                  */
 
 // AK8963_ST2 0x09 (Read-Only)
 #define ST2_BITM 1,4    // 0-14-bit 1-16-bit output stream, matches C1_BIT below
