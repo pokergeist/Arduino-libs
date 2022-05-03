@@ -5,7 +5,7 @@
  *
  *  @section intro_sec Introduction
  *
- * 	This is a library component for the AK8963 component of the MPU-9250 IMU.
+ * 	This is a library component for the AK8963 device of the MPU-9250 IMU.
  *
  *  @section dependencies Dependencies
  *
@@ -30,12 +30,6 @@
 
 extern char* trFunction;
 extern int   trLine;
-
-#ifdef DEBUG
-  #define DBG_SERIAL(...) Serial.print(__VAR_ARGS__)
-#else
-  #define DBG_SERIAL(...) do {} while(0)
-#endif
 
 /**************************************************************************/
 /*!
@@ -72,21 +66,21 @@ bool AK8963_Magnetometer::begin(uint8_t sensorId, bool in_pass_through_mode,
   sensor_id = sensorId;
   magn_i2c_device = new Adafruit_I2CDevice(AK8963_I2C_ADDRESS);
   if (not magn_i2c_device->begin()) {
-    DBG_SERIAL("mag i2cDev.begin() fail. Pass-through set?\n");
+    Serial.print("mag i2cDev.begin() fail. Pass-through set?\n");
     return false;
   }
   // who am I test
   if (not test_who_am_i(in_pass_through_mode)) {
-    DBG_SERIAL("mag who_am_i() failed\n");
+    Serial.print("mag who_am_i() failed\n");
     return false;
   }
   // add soft reset if necessary
   if (not setResolution(res_bits, in_pass_through_mode)) {
-    DBG_SERIAL("mag setRes fail\n");
+    Serial.print("mag setRes fail\n");
     return false;
   }
   if (not setMode(operation_mode, in_pass_through_mode)) {
-    DBG_SERIAL("mag setMode fail\n");
+    Serial.print("mag setMode fail\n");
     return false;
   }
   return true;
