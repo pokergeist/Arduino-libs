@@ -37,12 +37,6 @@
 #include <Wire.h>
 #include <Streaming.h>
 
-#ifdef DEBUG
-  #define DBG_SERIAL(...) Serial.print(__VAR_ARGS__)
-#else
-  #define DBG_SERIAL(...) do {} while(0)
-#endif
-
 #include "AFS_MPU9250.h"
 
 /**************************************************************************/
@@ -87,11 +81,6 @@ void AFS_MPU9250::setI2C_Bypass(bool bypass) {
   Adafruit_BusIO_RegisterBits i2c_master_enable(&user_ctrl, UC_I2C_MST_EN);
 
   i2c_bypass.write(bypass);
-  DBG_SERIAL("bypass:");
-  DBG_SERIAL(bypass);
-  DBG_SERIAL(" master now:");
-  DBG_SERIAL((i2c_master_enable.read()) ? "true" : "false");
-  DBG_SERIAL("\n");
   i2c_master_enable.write(!bypass); // 0-disable master (bypass mode) 1-master
 }
 

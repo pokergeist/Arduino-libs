@@ -76,7 +76,7 @@ bool AFS_MPU9250::begin(uint8_t i2c_address, uint8_t i2c_address_magn,
   delete i2c_dev; // remove old interfaces
   i2c_dev = new Adafruit_I2CDevice(i2c_address, wire);
   if (!i2c_dev->begin()) {
-    Serial.print("9250 I2C.begin() fault\n");
+    // Serial.print("9250 I2C.begin() fault\n");
     return false;
   }
 
@@ -84,24 +84,24 @@ bool AFS_MPU9250::begin(uint8_t i2c_address, uint8_t i2c_address_magn,
   // make sure we're talking to the right chip
   int id;
   if ((id = chip_id.read()) != MPU9250_DEVICE_ID) {
-    Serial.print("9250 chip ID fault: got 0x");
-    Serial.print(id, HEX);
-    Serial.print(" instead of 0x");
-    Serial.print(MPU9250_DEVICE_ID, HEX);
-    Serial.print("\n");
+    // Serial.print("9250 chip ID fault: got 0x");
+    // Serial.print(id, HEX);
+    // Serial.print(" instead of 0x");
+    // Serial.print(MPU9250_DEVICE_ID, HEX);
+    // Serial.print("\n");
     return false;
   }
 
   // reset & init sensors
   if (not _init(sensor_id)) {
-    Serial.print("MP9250._init() fault\n");
+    // Serial.print("MP9250._init() fault\n");
     return false;
   }
 
   setI2C_Bypass(true); // put I2C in pass-through mode
   if (not magn_sensor->begin(_sensorid_magn, true)) {
     // defaults: 100Hz sampling, 16-bit resolution
-    Serial.print("magn.begin fail\n");
+    // Serial.print("magn.begin fail\n");
     return false;
   }
   setI2C_Bypass(false);
@@ -481,9 +481,9 @@ bool AFS_MPU9250::proxy_write(Adafruit_I2CDevice* i2c_device,
                               uint8_t sregister, uint8_t bitwidth,
                               uint8_t shift, uint8_t value,
                               uint8_t nbytes) {
-  Serial.print("in proxy_write sreg=");
-  Serial.print(sregister, HEX);
-  Serial.print("\n");
+  // Serial.print("in proxy_write sreg=");
+  // Serial.print(sregister, HEX);
+  // Serial.print("\n");
   int initialBypassMode = getI2C_Bypass();
   if (not initialBypassMode) setI2C_Bypass(1);
   Adafruit_BusIO_Register slave_register(i2c_dev, sregister, nbytes);
@@ -571,11 +571,11 @@ bool AFS_MPU9250::config_slave_regs(uint8_t sl_i2c_address, uint slave_number,
   Adafruit_BusIO_RegisterBits ctrl_read_len(&slave_crtl_reg, SL_I2C_SLV_LENG); */
 
   if (not slave_addr_reg.write(0x80 | sl_i2c_address)) { // read bit + slave address
-    Serial.print("Slave I/O config fault address reg\n");
+    // Serial.print("Slave I/O config fault address reg\n");
     return false;
   }
   if (not slave_reg_reg.write(sl_base_register)) {
-    Serial.print("Slave I/O config fault register reg\n");
+    // Serial.print("Slave I/O config fault register reg\n");
     return false;
   }
 
@@ -591,7 +591,7 @@ bool AFS_MPU9250::config_slave_regs(uint8_t sl_i2c_address, uint slave_number,
   uint8_t ctrl_byte = 0b11000000 | (num_registers & 0xF);
   ctrl_byte |= (sl_base_register % 2) << 4;  // set grouping boundary, 0=even
   if (not slave_crtl_reg.write(ctrl_byte)) {
-    Serial.print("Slave I/O config fault control reg"\n);
+    // Serial.print("Slave I/O config fault control reg"\n);
     return false;
   }
   return true;
