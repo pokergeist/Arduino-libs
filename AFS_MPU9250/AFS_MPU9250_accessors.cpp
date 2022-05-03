@@ -12,8 +12,7 @@
  *
  *  @section dependencies Dependencies
  *
- *  This library depends on the Adafruit BusIO, Wire, and
- *  Adafruit_Unified_Sensor libraries.
+ *  This library depends on the Adafruit BusIO and Unified Sensor libraries.
  *
  *  @section author Author
  *

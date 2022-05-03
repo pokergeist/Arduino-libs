@@ -5,7 +5,7 @@
  *
  *  @section intro_sec Introduction
  *
- * 	This is a library component for the AK8963 device of the MPU-9250 IMU.
+ * 	This is the AK8963 Magnetometer component of the MPU-9250 IMU library.
  *
  *  @section dependencies Dependencies
  *

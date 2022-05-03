@@ -21,30 +21,44 @@
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
-#include "IMU_Device.h"
 #include "AFS_AK8963.h"
+#include "IMU_Device.h"
 
-#define MPU9250_I2CADDR_DEFAULT   0x68  ///< MPU9250 default i2c address w/ AD0 high
+#define MPU9250_I2CADDR_DEFAULT                                                \
+  0x68                              ///< MPU9250 default i2c address w/ AD0 high
 #define MPU9250_DEVICE_ID         0x71  ///< The correct MPU9250_WHO_AM_I value
 #define MPU9250_AK8963_ADDRESS    0x0C  ///< Address of magnetometer
 
 // Registers
-#define MPU9250_SELF_TEST_X_GYRO  0x00  ///< Self test factory calibrated values register
-#define MPU9250_SELF_TEST_Y_GYRO  0x01  ///< Self test factory calibrated values register
-#define MPU9250_SELF_TEST_Z_GYRO  0x02  ///< Self test factory calibrated values register
-#define MPU9250_SELF_TEST_X_ACCEL 0x0D  ///< Self test factory calibrated values register
-#define MPU9250_SELF_TEST_Y_ACCEL 0x0E  ///< Self test factory calibrated values register
-#define MPU9250_SELF_TEST_Z_ACCEL 0x0F  ///< Self test factory calibrated values register
-#define MPU9250_XG_OFFSET_H       0x13  ///< Self test factory calibrated values register
-#define MPU9250_XG_OFFSET_L       0x14  ///< Self test factory calibrated values register
-#define MPU9250_YG_OFFSET_H       0x15  ///< Self test factory calibrated values register
-#define MPU9250_YG_OFFSET_L       0x16  ///< Self test factory calibrated values register
-#define MPU9250_ZG_OFFSET_H       0x17  ///< Self test factory calibrated values register
-#define MPU9250_ZG_OFFSET_L       0x18  ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_X_GYRO                                               \
+  0x00 ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_Y_GYRO                                               \
+  0x01 ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_Z_GYRO                                               \
+  0x02 ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_X_ACCEL                                              \
+  0x0D ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_Y_ACCEL                                              \
+  0x0E ///< Self test factory calibrated values register
+#define MPU9250_SELF_TEST_Z_ACCEL                                              \
+  0x0F ///< Self test factory calibrated values register
+#define MPU9250_XG_OFFSET_H                                                    \
+  0x13 ///< Self test factory calibrated values register
+#define MPU9250_XG_OFFSET_L                                                    \
+  0x14 ///< Self test factory calibrated values register
+#define MPU9250_YG_OFFSET_H                                                    \
+  0x15 ///< Self test factory calibrated values register
+#define MPU9250_YG_OFFSET_L                                                    \
+  0x16 ///< Self test factory calibrated values register
+#define MPU9250_ZG_OFFSET_H                                                    \
+  0x17 ///< Self test factory calibrated values register
+#define MPU9250_ZG_OFFSET_L                                                    \
+  0x18 ///< Self test factory calibrated values register
 #define MPU9250_SMPLRT_DIV        0x19  ///< sample rate divisor register
 #define MPU9250_CONFIG            0x1A  ///< General configuration register
 #define MPU9250_GYRO_CONFIG       0x1B  ///< Gyro specfic configuration register
-#define MPU9250_ACCEL_CONFIG      0x1C  ///< Accelerometer specific configration register
+#define MPU9250_ACCEL_CONFIG                                                   \
+  0x1C ///< Accelerometer specific configration register
 #define MPU9250_ACCEL_CONFIG_2    0x1D  ///<
 #define MPU9250_LP_ACCEL_ODR      0x1E
 #define MPU9250_WOM_THR           0x1F
@@ -398,9 +412,7 @@ public:
   /** @brief Create an Adafruit_Sensor compatible object for the magnetometer
      sensor
       @param parent A pointer to the MPU9250 class */
-  AFS_MPU9250_Magnetometer(AFS_MPU9250* parent) {
-    _theMPU9250 = parent;
-  }
+  AFS_MPU9250_Magnetometer(AFS_MPU9250 *parent) { _theMPU9250 = parent; }
   bool getEvent(sensors_event_t*);
   void getSensor(sensor_t*);
 
@@ -416,9 +428,7 @@ public:
   /** @brief Create an Adafruit_Sensor compatible object for the accelerometer
      sensor
       @param parent A pointer to the MPU9250 class */
-  AFS_MPU9250_Accelerometer(AFS_MPU9250* parent) {
-    _theMPU9250 = parent;
-  }
+  AFS_MPU9250_Accelerometer(AFS_MPU9250 *parent) { _theMPU9250 = parent; }
   bool getEvent(sensors_event_t*);
   void getSensor(sensor_t*);
 
@@ -522,7 +532,8 @@ protected:
 
   Adafruit_I2CDevice* i2c_dev = NULL; ///< Pointer to MPU-9250 I2C device
 
-  AFS_MPU9250_Accelerometer* accel_sensor = NULL; ///< Accelerometer sensor object
+  AFS_MPU9250_Accelerometer *accel_sensor =
+      NULL;                                ///< Accelerometer sensor object
   AK8963_Magnetometer* magn_sensor = NULL;  ///< Magnetometer sensor object
   AFS_MPU9250_Gyro* gyro_sensor = NULL; ///< Gyro sensor object
   AFS_MPU9250_Temp* temp_sensor = NULL; ///< Temp sensor sensor object
@@ -531,14 +542,12 @@ protected:
                    uint8_t bitwidth, uint8_t shift, uint8_t value,
                    uint8_t nbytes=1);
   uint32_t proxy_read(Adafruit_I2CDevice* i2c_device, uint8_t sregister,
-                      uint8_t bitwidth, uint8_t shift,
-                      uint8_t nbytes=1);
+                      uint8_t bitwidth, uint8_t shift, uint8_t nbytes = 1);
   bool proxy_read(Adafruit_I2CDevice* i2c_device, uint8_t start_register,
                   uint8_t* buffer, uint8_t nbytes=1);
   bool bypass_mode(void);
 
-  uint16_t
-      _sensorid_accel, ///< ID number for accelerometer
+  uint16_t _sensorid_accel, ///< ID number for accelerometer
       _sensorid_magn,       ///< ID number for magnetometer
       _sensorid_gyro,       ///< ID number for gyro
       _sensorid_temp;       ///< ID number for temperature
@@ -549,13 +558,14 @@ protected:
                          uint8_t sl_base_register, uint8_t num_registers);
 
 private:
-  friend class AFS_MPU9250_Accelerometer; ///< Gives Accelerometer access to private members
-  friend class AFS_MPU9250_Magnetometer;  ///< Gives Magn access to private members
+  friend class AFS_MPU9250_Accelerometer; ///< Gives Accelerometer access to
+                                          ///< private members
+  friend class AFS_MPU9250_Magnetometer;  ///< Gives Magn access to private
+                                          ///< members
   friend class AFS_MPU9250_Gyro; ///< Gives Gyro access to private members
   friend class AFS_MPU9250_Temp; ///< Gives Temp access to private members
 
-  int16_t rawAccX, rawAccY, rawAccZ, rawTemp,
-          rawGyroX, rawGyroY, rawGyroZ,
+  int16_t rawAccX, rawAccY, rawAccZ, rawTemp, rawGyroX, rawGyroY, rawGyroZ,
           rawMagnX, rawMagnY, rawMagnZ;
 
   void fillGyroEvent(sensors_event_t* gyro, uint32_t timestamp);

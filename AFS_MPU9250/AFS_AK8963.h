@@ -3,7 +3,7 @@
  *
  * 	I2C Driver for AKM's AK8963 Magnetometer
  *
- * 	This is a library for the AK8963 component of the MPU-9250 IMU.
+ * 	This is the AK8963 Magnetometer component of the MPU-9250 IMU library.
  *
  * 	Full credit to Adafruit for the Adafruit_MPU6050 library from which
  *  this library was derived.
@@ -27,8 +27,8 @@
  * has a different register map
 ******************************************************************************/
 
-#include <Adafruit_I2CDevice.h>
 #include "IMU_Device.h"
+#include <Adafruit_I2CDevice.h>
 
 // default values
 #define AK8963_I2C_ADDRESS  0x0C
@@ -45,7 +45,8 @@
 #define AK8963_ZOUT_L    0x07
 #define AK8963_ZOUT_H    0x08
 #define AK8963_ST2       0x09  // Data overflow bit 3 and data read error status bit 2
-#define AK8963_CNTL1     0x0A  // Power down (0000), single-measurement (0001),
+#define AK8963_CNTL1                                                           \
+  0x0A                    // Power down (0000), single-measurement (0001),
                                // self-test (1000) and Fuse ROM (1111) modes
                                // on bits 3:0
 #define AK8963_CNTL2     0x0B  // Reset
@@ -68,10 +69,12 @@
 // array and read sizes for bulk data transfer
 #define AK8963_BULK_RAW_OUT_BYTES   6   // continuous read of raw magXYZ data
 #define AK63_RAW_BYTES              6   // continuous read of raw magXYZ data
-#define AK63_RAW_BYTES_ST2          7   /* continuous read of raw magXYZ data
+#define AK63_RAW_BYTES_ST2                                                     \
+  7 /* continuous read of raw magXYZ data                                      \
                                              + STATUS_2 (resets INTR)       */
-#define AK63_ST1_RAW_BYTES_ST2      8   /* continuous read of raw magXYZ data
-                                             + both status register
+#define AK63_ST1_RAW_BYTES_ST2                                                 \
+  8 /* continuous read of raw magXYZ data                                      \
+         + both status registers                                               \
                                              (resets INTR)                  */
 
 // AK8963_ST2 0x09 (Read-Only)
@@ -98,10 +101,7 @@ typedef enum {
   OP_MODE_FUSE_ROM     = 0b1111
 } magn_operation_mode_t;
 
-typedef enum {
-  RESOLUTION_14_BIT,
-  RESOLUTION_16_BIT
-} magn_resolution_t;
+typedef enum { RESOLUTION_14_BIT, RESOLUTION_16_BIT } magn_resolution_t;
 
 const float RES_14BIT_SCALING = 4912.0/8190;  // scale max reading to max
 const float RES_16BIT_SCALING = 4912.0/32760; //   range +/-4792uT
@@ -110,16 +110,17 @@ class AK8963_Magnetometer : public Adafruit_Sensor {
 
 public:
   AK8963_Magnetometer(IMU_Device* imu_dev);
-  virtual
-  ~AK8963_Magnetometer(void) { }
+  virtual ~AK8963_Magnetometer(void) {}
 
   bool begin(uint8_t sensor_id, bool in_pass_through_mode,
              magn_operation_mode_t operation_mode=OP_MODE_CONTINUOUS_2,
              magn_resolution_t res_type=RESOLUTION_16_BIT);
   bool getEvent(sensors_event_t* event);
   void getSensor(sensor_t* sensor);
-  bool setResolution(magn_resolution_t res_bits, bool in_pass_through_mode=false);
-  bool setMode(magn_operation_mode_t op_mode, bool in_pass_through_mode=false);
+  bool setResolution(magn_resolution_t res_bits,
+                     bool in_pass_through_mode = false);
+  bool setMode(magn_operation_mode_t op_mode,
+               bool in_pass_through_mode = false);
   bool test_who_am_i(bool in_pass_through_mode=false);
 
 protected:
