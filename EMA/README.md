@@ -41,10 +41,10 @@ float value(float new_value);   // initializes the EMA value and turns off the
                                 //   simple averaging initialization phase
 bool in_ema_mode(void);         // true if simple averaging initialization is done
 
-int getPeriods(void)			// get the number of EMA periods
+int getPeriods(void);		// get the number of EMA periods
 
-int setPeriods(int n_periods)	// set the number of periods to be used in future EMA
-								//   calculations. Returns the previous n_periods value.
+int setPeriods(int n_periods);	// set the number of periods to be used in future EMA
+				//   calculations. Returns the previous n_periods value.
 ```
 
 ### Run-time Construction
