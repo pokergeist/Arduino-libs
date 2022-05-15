@@ -3,6 +3,7 @@
  *
  * EMAs give more weighting to the most recent samples.
  *
+ * 20220512  John Jordan - Added accessors for number of periods.
  * 20190828  John Jordan - Original.
  ****************************************************************************/
  
@@ -14,9 +15,8 @@ class EMA {
  public:
 
   // c'tor - ema periods and number of samples to average to initialize ema
-  EMA (int periods, int samples_to_avg) {
-    k  = 2.0/(periods + 1);
-    k2 = 1.0 - k;
+  EMA (int n_periods, int samples_to_avg) {
+    setPeriods(n_periods);
     samples_to_average = samples_to_avg;
   }
 
@@ -49,12 +49,25 @@ class EMA {
   // test to see if still averaging samples
   bool in_ema_mode (void) { return averaging_done; }
 
+  // get number of periods
+  int getPeriods(void) { return periods; }
+
+  // set number of periods; return old value
+  int setPeriods (int n_periods) {
+    int old_p = periods;
+    periods = n_periods;
+    k  = 2.0/(periods + 1);
+    k2 = 1.0 - k;
+    return old_p;
+  }
+
  protected:
  
   int  samples_to_average;      // samples to average
   int  averaged_samples = 0;    // how many so far
   bool averaging_done = false;  // done with averaging by count or override
   float k, k2, ema_value;       // constants and our progressive ema value
-};
+  int  periods;                 // number of periods EMA is calculated over
+}; // class EMA
 
-#endif
+#endif /* _H */

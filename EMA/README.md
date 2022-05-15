@@ -27,6 +27,11 @@ void loop (void) {
 ### Methods
 
 ```c++
+/*************************************************************
+ * periods: Sets number of periods used in EMA calculations.
+ * samples_to_average: Sets the number of samples to average
+ * to set the initial EMA value.
+ *************************************************************/
 EMA (int periods, int samples_to_average);
 
 float update(float sample);     // update the exp. moving average (or simple average
@@ -35,4 +40,32 @@ float value(void);              // returns the EMA value again (no update)
 float value(float new_value);   // initializes the EMA value and turns off the
                                 //   simple averaging initialization phase
 bool in_ema_mode(void);         // true if simple averaging initialization is done
+
+int getPeriods(void)			// get the number of EMA periods
+
+int setPeriods(int n_periods)	// set the number of periods to be used in future EMA
+								//   calculations. Returns the previous n_periods value.
+```
+
+### Run-time Construction
+
+If you want to create your object containing an EMA component using a configurable "periods" attribute, you can use a variable initialization list.
+
+```c++
+class Foo {
+  Foo (int ema_periods);
+  EMA  my_EMA;    // no c'tor args
+};
+
+Foo::Foo(int ema_periods) : my_EMA(ema_periods, ema_periods) { ... }
+```
+### Changing EMA periods
+
+You use the setPeriods() method to change the number of EMA periods as needed.
+
+```c++
+EMA myEMA(50, 50);
+
+  // faster response needed now (less damping)
+  myEMA.setPeriods(10);
 ```
