@@ -69,3 +69,13 @@ EMA myEMA(50, 50);
   // faster response needed now (less damping)
   myEMA.setPeriods(10);
 ```
+
+### Example plot_ema.ino
+
+This example plots a sine wave with slow and fast EMA, and a simple average graph. The fast EMA tracks the sine wave well while there is more lag and damping with the slow graph. The simple average lags considerably, hits zero at the end of every cycle, and converges to zero.
+
+The results will vary considerably with your data. More sporatic, noisy data will benefit from more periods, while fewer periods will be more responsive and track current values better. 
+
+As for the number of samples to average to initialize the EMA, that's going to depend on your data.
+
+<img src="examples/plot_ema/ema_plot.png" alt="ema_plot" width="600">
