@@ -22,6 +22,7 @@
  *
  * 	@section  HISTORY
  *
+ *  20220516  John Jordan - Periods and samples are now unsigned ints.
  *  20220512  John Jordan - Added accessors for number of periods.
  *  20190828  John Jordan - Original.
  */
@@ -29,12 +30,14 @@
 #ifndef EMA_H
 #define EMA_H
 
+#define U_INT unsigned int    // use native unsigned int
+
 class EMA {
 
  public:
 
   // c'tor - ema periods and number of samples to average to initialize ema
-  EMA (int n_periods, int samples_to_avg);
+  EMA (U_INT n_periods, U_INT samples_to_avg);
 
   // update the ema (or average) value with a new sample
   float update (float sample);
@@ -51,18 +54,18 @@ class EMA {
   bool in_ema_mode (void);
 
   // get number of periods
-  int getPeriods(void);
+  U_INT getPeriods(void);
 
   // set number of periods; return old value
-  int setPeriods (int n_periods);
+  U_INT setPeriods (U_INT n_periods);
 
  protected:
 
-  int  samples_to_average;      // samples to average
-  int  averaged_samples = 0;    // how many so far
+  U_INT  samples_to_average;   // samples to average
+  U_INT  averaged_samples = 0; // how many so far
   bool averaging_done = false;  // done with averaging by count or override
   float k, k2, ema_value;       // constants and our progressive ema value
-  int  periods;                 // number of periods EMA is calculated over
+  U_INT  periods;              // number of periods EMA is calculated over
 }; // class EMA
 
 #endif /* _H */

@@ -10,8 +10,8 @@
 
 EMA slow_ema(100, DONT_CARE); // samples_to_average don't matter - we set init value later
 EMA fast_ema(15,  DONT_CARE);
-EMA avg(DONT_CARE, 360);      // create an averaging function - ema_periods don't matter,
-                              // we're averaging the entire time (360 plot points)
+EMA avg(DONT_CARE, 400);      // create an averaging function - ema_periods don't matter,
+                              // we're averaging the entire time (361 plot points)
 
 void setup (void) {
   Serial.begin(9600);

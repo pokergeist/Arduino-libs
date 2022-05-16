@@ -22,6 +22,7 @@
  *
  * 	@section  HISTORY
  *
+ *  20220516  John Jordan - Periods and samples are now unsigned ints.
  *  20220512  John Jordan - Added accessors for number of periods.
  *  20190828  John Jordan - Original.
  */
@@ -37,7 +38,7 @@
             number of samples to be averaged to set initial EMA value
  */
 /**************************************************************************/
-EMA::EMA (int n_periods, int samples_to_avg) {
+EMA::EMA (U_INT n_periods, U_INT samples_to_avg) {
   setPeriods(n_periods);
   samples_to_average = samples_to_avg;
 }
@@ -101,7 +102,7 @@ bool EMA::in_ema_mode (void) { return averaging_done; }
     @returns the number of periods used in EMA calculation
 */
 /**************************************************************************/
-int EMA::getPeriods(void) { return periods; }
+U_INT EMA::getPeriods(void) { return periods; }
 
 /**************************************************************************/
 /*!
@@ -111,8 +112,8 @@ int EMA::getPeriods(void) { return periods; }
     @returns the previous number of periods used
 */
 /**************************************************************************/
-int EMA::setPeriods (int n_periods) {
-  int old_p = periods;
+U_INT EMA::setPeriods (U_INT n_periods) {
+  U_INT old_p = periods;
   periods = n_periods;
   k  = 2.0/(periods + 1);
   k2 = 1.0 - k;

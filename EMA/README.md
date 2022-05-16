@@ -74,7 +74,7 @@ EMA myEMA(50, 50);
 
 This example plots a sine wave with slow and fast EMA, and a simple average graph. The fast EMA tracks the sine wave well while there is more lag and damping with the slow graph. The simple average lags considerably, hits zero at the end of every cycle, and converges to zero.
 
-The results will vary considerably with your data. More sporatic, noisy data will benefit from more periods, while fewer periods will be more responsive and track current values better. 
+The results will vary considerably with your data. More sporadic, noisy data will benefit from more periods, while fewer periods will be more responsive and track recent values better. 
 
 As for the number of samples to average to initialize the EMA, that's going to depend on your data.
 
