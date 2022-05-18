@@ -51,7 +51,7 @@ EMA::EMA (U_INT n_periods, U_INT samples_to_avg) {
     @returns New EMA
 */
 /**************************************************************************/
-float EMA::update (float sample) {
+float EMA::update(float sample) {
   if (averaging_done) {
     ema_value = k * sample + k2 * ema_value;
   } else {
@@ -69,7 +69,7 @@ float EMA::update (float sample) {
     @returns the EMA value
 */
 /**************************************************************************/
-float EMA::value (void) { return ema_value; }
+float EMA::value(void) { return ema_value; }
 
 /**************************************************************************/
 /*!
@@ -80,7 +80,7 @@ float EMA::value (void) { return ema_value; }
     @returns the previous EMA value
 */
 /**************************************************************************/
-float EMA::value (float new_value) {
+float EMA::value(float new_value) {
   float old_value = ema_value;
   ema_value = new_value;
   averaging_done = true;
@@ -94,7 +94,7 @@ float EMA::value (float new_value) {
              False if still averaging for initial value.
 */
 /**************************************************************************/
-bool EMA::in_ema_mode (void) { return averaging_done; }
+bool EMA::in_ema_mode(void) { return averaging_done; }
 
 /**************************************************************************/
 /*!
@@ -112,7 +112,7 @@ U_INT EMA::getPeriods(void) { return periods; }
     @returns the previous number of periods used
 */
 /**************************************************************************/
-U_INT EMA::setPeriods (U_INT n_periods) {
+U_INT EMA::setPeriods(U_INT n_periods) {
   U_INT old_p = periods;
   periods = n_periods;
   k  = 2.0/(periods + 1);
