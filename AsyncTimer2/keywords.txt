@@ -1,0 +1,37 @@
+#######################################
+# Syntax Coloring Map AsyncTimer2
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+AsyncTimer2	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+Start	KEYWORD2
+ConditionalStart	KEYWORD2
+Reset	KEYWORD2
+Stop	KEYWORD2
+Check	KEYWORD2
+CheckAndSwitch	KEYWORD2
+SetIntervalMillis	KEYWORD2
+SetIntervalMicros	KEYWORD2
+SetCookie	KEYWORD2
+GetStartTime	KEYWORD2
+GetElapsedTime	KEYWORD2
+GetRemainingTime	KEYWORD2 
+GetCookie	KEYWORD2
+IsActive	KEYWORD2
+IsExpired	KEYWORD2
+Interval	KEYWORD2
+AutoReset	KEYWORD2
+Every	KEYWORD2
+In	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+TIMER_RESETS  LITERAL1
+TIMER_ONE_SHOT  LITERAL1
