@@ -87,7 +87,7 @@ void Stop();    // sets not active
 bool Check();   // checks for expiry
 bool CheckAndSwitch(AsyncTimer2 &next);  // check current timer, start next timer if current timer is inactive
                                          // returns status of timer switch
-// settimer intervals
+// set timer intervals
 void SetIntervalMillis(unsigned long interval);
 void SetIntervalMicros(unsigned long interval);
 
