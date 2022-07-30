@@ -12,10 +12,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
  * 2019       John Jordan - Various mods to funcions, names, heavily
  *                          reformatting and commented.
  ******************************************************************************/
- 
+
 #ifndef _ASYNCTIMER2_H
 #define _ASYNCTIMER2_H
- 
+
 #include "Arduino.h"
 
 typedef void(*AsyncTimerCallback)();
@@ -30,7 +30,7 @@ class AsyncTimer2 {
   AsyncTimer2(unsigned long microsInterval, AsyncTimerCallback onFinish, bool autoReset=false);
   AsyncTimer2(unsigned long microsInterval, bool autoReset=false, AsyncTimerCallback onFinish=nullptr);
   AsyncTimer2(unsigned long microsInterval, AsyncTimer2Callback onFinish2, int cookie=0, bool autoReset=false);
-  
+
   // 32-bit micros() overflow (wrap) every 72.58 minutes. The unsigned integer
   // math still returns the correct exipry result.
 
@@ -41,7 +41,7 @@ class AsyncTimer2 {
   bool Check();   // checks for expiry
   bool CheckAndSwitch(AsyncTimer2 &next);  // check current timer, start next timer if current timer is inactive
                                           // returns status of timer switch
-  
+
   void SetIntervalMillis(unsigned long interval);
   void SetIntervalMicros(unsigned long interval);
   void SetCookie(int cookie);
@@ -53,13 +53,13 @@ class AsyncTimer2 {
 
   bool IsActive() const;  // true as long as started and not stopped or expired w/o reset
   bool IsExpired() const; // true once expiry detected until reset or start
-  
+
   unsigned long Interval;
   bool AutoReset;         // no accessor
-  
+
   AsyncTimerCallback  OnFinish;  // no cookie
   AsyncTimer2Callback OnFinish2; // returns cookie
-  
+
   void Every(unsigned long millisInterval, AsyncTimerCallback onFinish);
   void In(unsigned long millisInterval, AsyncTimerCallback onFinish);
 
@@ -71,4 +71,3 @@ private:
   int  Cookie;
 };
 #endif
-

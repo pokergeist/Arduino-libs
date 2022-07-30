@@ -21,9 +21,9 @@ This developing library supports the MPU-9250 9-DOF Motion Processing Unit/IMU, 
 
 ### AsyncTimer2
 
-This is a fork of Luis Llamas' [AsyncTimerLib](https://github.com/luisllamasbinaburo/Arduino-AsyncTimer).
+This is a clone of Luis Llamas' [AsyncTimerLib](https://github.com/luisllamasbinaburo/Arduino-AsyncTimer).
 
-This library lets you configure timers and callbacks and optional parameters. Each time through loop() check your timers. There are a number of good features and options. AsyncTimerLib may be documented better. I use it for concurrent I2C and Serial message processing, blinking LEDs, mode switch timing, and sensor monitoring in one project alone. Handy stuff.
+This library lets you configure timers and callbacks with an optional parameter. Each time through loop() check your timers. There are a number of good features and options. AsyncTimerLib may be documented better. I use it for concurrent I2C and Serial message processing, blinking LEDs, mode switch timing, and sensor monitoring in one project alone. Handy stuff.
 
-I tinkered with the constructors and default parameters to suit me, probably renamed a few things - it's been a while.
+I tinkered with the constructors and default parameters to suit me, added an option to return an int parameter to a callback, and probably renamed a few things.
 

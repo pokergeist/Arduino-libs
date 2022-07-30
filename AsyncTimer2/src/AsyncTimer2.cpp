@@ -29,7 +29,7 @@ AsyncTimer2::AsyncTimer2(unsigned long microsInterval, bool autoReset/*=false*/,
 
 AsyncTimer2::AsyncTimer2(unsigned long microsInterval, AsyncTimer2Callback onFinish2, int cookie, bool autoReset/*=false*/) {
   Interval  = microsInterval;
-  AutoReset = autoReset; 
+  AutoReset = autoReset;
   OnFinish2 = onFinish2;
   SendCookie = true;
   Cookie = cookie;  // default param 0
@@ -95,11 +95,11 @@ unsigned long AsyncTimer2::GetRemainingTime() {
   return Interval - micros() + _startTime;
 }
 
-void AsyncTimer2::SetCookie (int cookie) {
+void AsyncTimer2::SetCookie(int cookie) {
   Cookie = cookie;
 }
 
-int AsyncTimer2::GetCookie (void) {
+int AsyncTimer2::GetCookie(void) {
   return Cookie;
 }
 
