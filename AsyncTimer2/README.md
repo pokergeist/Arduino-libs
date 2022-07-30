@@ -13,6 +13,8 @@ I tinkered with the constructors and default parameters to suit me, and probably
 This example show how I utilize multiple timers. Some of my software modules manage their own timers and I call their startTimers() and checkTimers() methods.
 
 ```c++
+#include <AsyncTimer2.h>
+
 // define prototypes for timer callbacks
 void scanConsole (void);
 void reportTemps (void);
